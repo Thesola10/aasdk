@@ -1,20 +1,28 @@
-{ pkgs, stdenv, ... }:
+{ pkgs, stdenv
+, cmakeFlags ? ""
+, isStatic ? false
+, buildPkgs ? pkgs
+, ... }:
 
-stdenv.mkDerivation {
+let
+  hostPkgs = if isStatic then pkgs.pkgsStatic else pkgs;
+in hostPkgs.stdenv.mkDerivation {
+  inherit cmakeFlags;
+
   name = "aasdk";
   src = ./.;
 
-  nativeBuildInputs = with pkgs;
+  nativeBuildInputs = with buildPkgs;
   [ cmake
     git
   ];
 
-  propagatedBuildInputs = with pkgs;
+  propagatedBuildInputs = with hostPkgs;
   [ libusb
     protobuf
   ];
 
-  buildInputs = with pkgs;
+  buildInputs = with hostPkgs;
   [ boost168
     openssl_1_1
   ];

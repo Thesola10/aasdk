@@ -47,7 +47,7 @@ set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
 
-add_definitions(-DBOOST_ALL_DYN_LINK)
+#add_definitions(-DBOOST_ALL_DYN_LINK)
 
 include(${base_directory}/cmake_modules/gitversion.cmake)
 set (aasdk_VERSION_PATCH ${_commit_timestamp})
@@ -86,7 +86,7 @@ file(GLOB_RECURSE tests_include_files ${include_ut_directory}/*.hpp)
 
 list(REMOVE_ITEM source_files ${tests_source_files})
 
-add_library(aasdk SHARED
+add_library(aasdk
                 ${source_files}
                 ${include_files})
 
