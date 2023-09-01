@@ -9,7 +9,9 @@
         callpkg (import nixpkgs {
           system = "x86_64-linux";
           config.permittedInsecurePackages = ["openssl-1.1.1v"];
-        }) {};
+        }) {
+          cmakeFlags = ["-DBUILD_SHARED_LIBS=ON" "-DCMAKE_CXX_FLAGS_INIT=-DBOOST_ALL_DYN_LINK" ];
+        };
       packages.aarch64-linux.default =
         let pkgs = (import nixpkgs {
             system = "x86_64-linux";
